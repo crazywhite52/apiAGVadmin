@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>info API 8012</title>
+    <style>
+        div {
+          border: 1px solid gray;
+          padding: 8px;
+        }
+        
+        h1 {
+            /* text-indent: 50px; */
+          text-align: left;
+          font-size: 24px;
+          text-transform: uppercase;
+          color: rgb(17, 14, 177);
+        }
+        h2 {
+          text-align: left;
+          text-transform: uppercase;
+          font-size: 16px;
+          color: #4CAF50;
+        }
+        p {
+          text-indent: 50px;
+          font-size: 14px;
+          text-align: left;
+          letter-spacing: 3px;
+        }
+        
+        a {
+          text-decoration: none;
+          color: #008CBA;
+        }
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        </style>
+</head>
+<body>
+    <h1 style="color: black;">AGV SYSTEMS&nbsp;&nbsp;&nbsp;</h1>
+    <!-- <div>
+      <h2>- ตรวจสอบข้อมุลบิลโอน</h2>
+        <p><k style="color: red;">Method </k>: GET </p>
+        <p><k style="color: red;">Url </k>   : <a target="_blank" href="http://172.18.0.135:8012/AGVadmin/agvInbound/6/4712796">http://172.18.0.135:8012/AGVadmin/agvInbound/{BR}/{ID}</a></p>
+        <p><k style="color: red;">body </k>  : ไม่มี</p>
+    </div>
+    <div>
+      <h2>- บันทึก TO AGV</h2>
+        <p><k style="color: red;">Method </k>: POST </p>
+        <p><k style="color: red;">Url </k>   : <a target="_blank" href="http://172.18.0.135:8012/AGVadmin/addInbound">http://172.18.0.135:8012/AGVadmin/addInbound</a></p>
+        <p><k style="color: red;">body </k>  : ไม่มี</p>
+    </div> -->
+
+
+    <div>
+      <h2 style="color: black;">Picking Products In AGV</h2>
+        <p><k style="color: red;">Method </k>: POST </p>
+        <p><k style="color: red;">Url </k>   :http://172.18.0.135:8012/AGVadmin/pickingInAGV</p>
+        <p><u><k style="color: red;">Body </k>  : JSON </u><br>
+          <pre style="color: darkslategrey;">{
+            "billNumber": "JIB620909-001",
+            "billType": "JIB-Online-Order",
+            "priority": "2 hr",
+            "shipToName":"Mr.Somyot Chaowalit",
+            "remark":"Order ONLINE babababa",
+            "details": [
+                {
+                    "skuCode": "8905533028",
+                    "skuName": "MICROPHONE STAND NUBWO M21 GOLD 1-Y",
+                    "quantity": 2
+                },
+                {
+                    "skuCode": "8905533041-1",
+                    "skuName": "K/B FANTECH GAMING HUNTER PRO [K511] 2-Y",
+                    "quantity": 2
+                }
+            ]
+        }</pre></p><br>
+        <p><u><k style="color: red;font-size: 16px;"><strong> Data Dictionary</strong></k></k></u>
+          <table style="font-size: 14px;">
+            <tr>
+              <th style="width: 100px;">Prefix</th>
+              <th>Notes</th>
+             
+            </tr>
+            <tr>
+              <td>billNumber</td>
+              <td>ออร์เดอร์ของออนไลน์</td>
+            
+            </tr>
+            <tr>
+              <td>billType</td>
+              <td>ประเภทของรายการ เช่น JIB-Online-Order(บิลของออนไลน์) , Lazada-Online-Order</td>
+    
+            </tr>
+            <tr>
+              <td>priority</td>
+              <td>ความสำคัญของออร์เดอร์ เช่น 1.30 hr ,same day หรือ nextday เป็นต้น</td>
+             
+            </tr>
+            <tr>
+              <td>shipToName</td>
+              <td>ชื่อลูกค้า หรือ คนสั่งออร์เดอร์</td>
+            </tr>
+            <tr>
+              <td>remark</td>
+              <td>หมายเหตุ หรือข้อความที่ต้องการบอกคนหยิบ</td>
+            </tr>
+            <tr>
+              <td>skuCode</td>
+              <td>รหัสสินค้า</td>
+            </tr>
+            <tr>
+              <td>skuName</td>
+              <td>ชื่อสินค้า</td>
+            </tr>
+            <tr>
+              <td>quantity</td>
+              <td>จำนวนหยิบ</td>
+            </tr>
+            <tr>
+              <th style="width: 100px;color: burlywood;">OUT</th>
+              <th></th>
+             
+            </tr>
+            <tr>
+              <td>statusBill</td>
+              <td>สถานะบิลที่ได้จาก AGV {true=>กำลังหยิบให้,false=>ไม่สามารถทำงานได้ให้ดูที่ msg}</td>
+            </tr>
+            <tr>
+              <td>inAgv</td>
+              <td>รายการสินค้าที่มีใน AGV</td>
+            </tr>
+            <tr>
+              <td>notAgv</td>
+              <td>รายการสินค้าที่ไม่มีใน AGV</td>
+            </tr>
+                
+          </table>
+        
+        </p>
+        <br><br>
+      <p><u><k style="color: red;font-size: 16px;"><strong>Respones</strong> </k>  : JSON </u><br>
+        <k style="color: rgb(6, 117, 34);">[สำเร็จ]</k><br>
+        <pre style="color: darkslategrey;">{
+          "success": true,
+          "billNumber": "JIB620909-001",
+          "billType": "JIB-Online-Order",
+          "priority": "2 hr",
+          "billDate": "2020-04-03 17:22:57.245",
+          "shipToName": "Mr.Somyot Chaowalit",
+          "remark": "Order ONLINE babababa",
+          "resultMessage": {
+              "statusBill": true,
+              "inAgv": [
+                  {
+                      "skuCode": "8905533028",
+                      "skuName": "MICROPHONE STAND NUBWO M21 GOLD 1-Y",
+                      "quantity": 2
+                  }
+              ],
+              "notAgv": [
+                  {
+                      "skuCode": "8905533041-1",
+                      "skuName": "K/B FANTECH GAMING HUNTER PRO [K511] 2-Y",
+                      "quantity": 2,
+                      "haveAGV": "No",
+                      "stockAGV": "No"
+                  }
+              ],
+              "msg": "ทำรายการสำเร็จ AGV กำลังทำงานกับออร์เดอร์ของคุณ"
+          }
+      }</pre>
+    
+    <br>
+    <k style="color: rgb(255, 8, 49);">[ไม่สำเร็จ ไม่พบสินค้า]</k><br>
+    <pre style="color: darkslategrey;">{
+      "success": false,
+      "billNumber": "JIB620909-001",
+      "billType": "JIB-Online-Order",
+      "priority": "2 hr",
+      "billDate": "2020-04-03 17:33:34.947",
+      "shipToName": "Mr.Somyot Chaowalit",
+      "remark": "Order ONLINE babababa",
+      "resultMessage": {
+          "statusBill": false,
+          "inAgv": [],
+          "notAgv": [
+              {
+                  "skuCode": "8905533028-1",
+                  "skuName": "MICROPHONE STAND NUBWO M21 GOLD 1-Y",
+                  "quantity": 2,
+                  "haveAGV": "No",
+                  "stockAGV": "No"
+              },
+              {
+                  "skuCode": "8905533041-1",
+                  "skuName": "K/B FANTECH GAMING HUNTER PRO [K511] 2-Y",
+                  "quantity": 2,
+                  "haveAGV": "No",
+                  "stockAGV": "No"
+              }
+          ],
+          "msg": "ไม่สามารถทำรายการได้ ไม่พบสินค้าใน AGV"
+      }
+  }</pre>
+
+  <k style="color: rgb(255, 8, 49);">[ไม่สำเร็จ อื่นๆ]</k><br>
+  "msg": "พบปัญหาเกิดขึ้น ลองตรวจสอบอีกครั้ง..."<br>
+  "msg": ""ไม่สามารถทำรายการได้ กรุณาลองใหม่อีกครั้ง""<br>
+    </p>
+   
+    </div>
+    
+    <div>
+      <h2 style="color: black;">Picking Cancel (ยกเลิกออร์เดอร์)</h2>
+        <p><k style="color: red;">Method </k>: POST </p>
+        <p><k style="color: red;">Url </k>   :http://172.18.0.135:8012/AGVadmin/pickingCancel</p>
+        <p><u><k style="color: red;">Body </k>  : JSON </u><br>
+          <pre style="color: darkslategrey;">[
+            {
+              "billNumber":"JIB620909-001"
+            },
+            {
+              "billNumber":"JIB620909-002"
+            }
+          ]</pre></p><br>
+          <p><u><k style="color: red;font-size: 16px;"><strong>Respones</strong> </k>  : JSON </u><br>
+            <k style="color: rgb(6, 117, 34);">[สำเร็จ]</k><br>
+            <pre style="color: darkslategrey;">{
+              "status": true,
+              "response": [
+                  {
+                      "billNumber": "JIB620909-001",
+                      "cancel": true
+                  },
+                  {
+                      "billNumber": "JIB620909-002",
+                      "cancel": true
+                  }
+              ],
+              "msg": "ยกเลิกรายการของคุณแล้ว"
+          }</pre>
+        
+        <br>
+        <k style="color: rgb(255, 8, 49);">[ไม่สำเร็จ]</k><br>
+        <pre style="color: darkslategrey;">{
+          "status": false,
+          "response": [],
+          "msg": "ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง"
+      }</pre>
+
+        </div>
+
+</body>
+</html>
+
